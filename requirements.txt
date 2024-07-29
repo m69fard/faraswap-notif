@@ -5,3 +5,4 @@ python-decouple
 celery 
 redis
 drf-yasg
+requests
