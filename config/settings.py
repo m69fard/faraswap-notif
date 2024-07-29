@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # third party
     'rest_framework',
     'drf_yasg',
+    'celery',
     # apps
     'apps.notification',
 ]
@@ -146,3 +147,10 @@ SIMPLE_JWT = {
     "SIGNING_KEY": config("SECRET_KEY"),
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
 }
+
+# Broker settings
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+
+
+# URL of the Authentication Service
+AUTH_SERVICE_URL =  config("AUTH_SERVICE_URL")
