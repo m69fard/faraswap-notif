@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import TestAPIView
+from .views import OTPAPIView
 
 urlpatterns = [
-    path("test", TestAPIView.as_view()),
+    path("otp", OTPAPIView.as_view()),
 ]
 
 
