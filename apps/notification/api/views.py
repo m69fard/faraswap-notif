@@ -11,7 +11,6 @@ class OTPAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        user_id = request.user.id
         token = request.auth
         phone_number = get_phone_number(token)
         if not phone_number:
