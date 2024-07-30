@@ -1,13 +1,46 @@
-version: '3.8'
-
 services:
+  notification:
+    container_name: notification
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    ports:
+      - "8001:8001"
+    depends_on:
+      - rabbitmq
+      - celery
+    networks:
+      - backend
+
+  celery:
+    container_name: notif-celery
+    build:
+      context: .
+    command: celery -A config worker --loglevel=info
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
 
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq
     container_name: notif-rabbitmq
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
     ports:
       - "5672:5672"
       - "15672:15672" # RabbitMQ management console
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
