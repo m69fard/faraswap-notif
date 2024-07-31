@@ -14,6 +14,9 @@ class OTPAPIView(APIView):
         token = request.auth
         phone_number = get_phone_number(token)
         if not phone_number:
-            return Response({"error": "User does not have a phone number or invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "User does not have a phone number or invalid token"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         send_otp(phone_number)
         return Response({"message": "OTP is being sent"}, status=status.HTTP_200_OK)

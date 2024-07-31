@@ -141,10 +141,12 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
+SIGNING_KEY = config("SIGNING_KEY")
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "SIGNING_KEY": config("SIGNING_KEY"),
+    "SIGNING_KEY": SIGNING_KEY,
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
 }
 
